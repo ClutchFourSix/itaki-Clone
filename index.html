@@ -9,17 +9,19 @@
     :root {
       --bg: #0b1220;
       --bg2: #10192d;
-      --panel: #111a2e;
-      --panel2: #16223d;
+      --panel: rgba(17, 26, 46, 0.84);
+      --panel2: rgba(22, 34, 61, 0.90);
       --text: #f4f7ff;
       --muted: #b8c3d9;
       --line: rgba(255,255,255,0.08);
       --brand: #29d391;
       --brand-dark: #0b1b14;
       --accent: #8fb3ff;
+      --gold: #ffd36e;
+      --danger: #ff8f8f;
       --max: 1120px;
-      --radius: 18px;
-      --shadow: 0 18px 45px rgba(0,0,0,0.28);
+      --radius: 20px;
+      --shadow: 0 20px 50px rgba(0,0,0,0.30);
     }
 
     * { box-sizing: border-box; }
@@ -28,13 +30,42 @@
       margin: 0;
       font-family: Inter, Arial, sans-serif;
       background:
-        radial-gradient(circle at top left, rgba(143,179,255,0.15), transparent 30%),
-        radial-gradient(circle at top right, rgba(41,211,145,0.10), transparent 25%),
+        radial-gradient(circle at 0% 0%, rgba(143,179,255,0.18), transparent 28%),
+        radial-gradient(circle at 100% 0%, rgba(41,211,145,0.12), transparent 26%),
+        radial-gradient(circle at 50% 100%, rgba(255,211,110,0.08), transparent 22%),
         linear-gradient(180deg, var(--bg) 0%, #0d1628 45%, var(--bg) 100%);
       color: var(--text);
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    body::before,
+    body::after {
+      content: "";
+      position: fixed;
+      width: 420px;
+      height: 420px;
+      border-radius: 999px;
+      filter: blur(80px);
+      opacity: 0.16;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    body::before {
+      background: var(--accent);
+      left: -160px;
+      top: 90px;
+    }
+
+    body::after {
+      background: var(--brand);
+      right: -140px;
+      top: 180px;
     }
 
     a { color: inherit; text-decoration: none; }
+    main, nav, footer { position: relative; z-index: 1; }
 
     .container {
       max-width: var(--max);
@@ -46,8 +77,8 @@
       position: sticky;
       top: 0;
       z-index: 50;
-      backdrop-filter: blur(12px);
-      background: rgba(11,18,32,0.76);
+      backdrop-filter: blur(14px);
+      background: rgba(11,18,32,0.72);
       border-bottom: 1px solid var(--line);
     }
 
@@ -68,15 +99,15 @@
     }
 
     .brand-mark {
-      width: 42px;
-      height: 42px;
-      border-radius: 12px;
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
       display: grid;
       place-items: center;
       background: linear-gradient(135deg, var(--brand) 0%, var(--accent) 100%);
       color: #07110d;
       font-weight: 900;
-      box-shadow: 0 12px 28px rgba(41,211,145,0.18);
+      box-shadow: 0 14px 32px rgba(41,211,145,0.22);
     }
 
     .nav-links {
@@ -98,10 +129,22 @@
       font-size: 0.96rem;
       border: 0;
       cursor: pointer;
-      transition: transform .18s ease, box-shadow .18s ease, opacity .18s ease;
+      transition: transform .18s ease, box-shadow .18s ease, opacity .18s ease, border-color .18s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(115deg, transparent 20%, rgba(255,255,255,0.18) 50%, transparent 80%);
+      transform: translateX(-140%);
+      transition: transform .45s ease;
     }
 
     .btn:hover { transform: translateY(-1px); }
+    .btn:hover::after { transform: translateX(140%); }
 
     .btn-primary {
       background: linear-gradient(135deg, var(--brand) 0%, #6fe6b6 100%);
@@ -110,19 +153,19 @@
     }
 
     .btn-secondary {
-      background: rgba(255,255,255,0.04);
+      background: rgba(255,255,255,0.05);
       color: var(--text);
       border: 1px solid var(--line);
     }
 
     .hero {
-      padding: 74px 0 40px;
+      padding: 84px 0 46px;
     }
 
     .hero-grid {
       display: grid;
-      grid-template-columns: 1.2fr 0.85fr;
-      gap: 28px;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 30px;
       align-items: center;
     }
 
@@ -141,10 +184,17 @@
 
     h1 {
       margin: 18px 0 18px;
-      font-size: clamp(2.8rem, 6vw, 5.2rem);
-      line-height: 0.96;
-      letter-spacing: -0.05em;
+      font-size: clamp(3rem, 6vw, 5.4rem);
+      line-height: 0.94;
+      letter-spacing: -0.055em;
       max-width: 11ch;
+    }
+
+    .gradient-text {
+      background: linear-gradient(135deg, #ffffff 0%, #cfffe8 38%, #b4c6ff 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
     }
 
     .lead {
@@ -164,7 +214,7 @@
       display: flex;
       flex-wrap: wrap;
       gap: 12px;
-      margin-top: 26px;
+      margin-top: 28px;
     }
 
     .trust-row {
@@ -175,12 +225,13 @@
     }
 
     .trust-pill {
-      padding: 12px 14px;
-      border-radius: 14px;
+      padding: 13px 15px;
+      border-radius: 16px;
       background: rgba(255,255,255,0.04);
       border: 1px solid var(--line);
       color: var(--muted);
-      min-width: 155px;
+      min-width: 160px;
+      backdrop-filter: blur(8px);
     }
 
     .trust-pill strong {
@@ -195,29 +246,46 @@
     .price-card,
     .cta-panel,
     .translator,
-    .step {
+    .step,
+    .proof-strip {
       background: linear-gradient(180deg, var(--panel) 0%, var(--panel2) 100%);
       border: 1px solid var(--line);
       border-radius: var(--radius);
       box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
     }
 
     .hero-panel {
-      padding: 24px;
+      padding: 26px;
       position: relative;
       overflow: hidden;
+      isolation: isolate;
+    }
+
+    .hero-panel::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      padding: 1px;
+      background: linear-gradient(145deg, rgba(143,179,255,0.32), rgba(41,211,145,0.26), rgba(255,211,110,0.18));
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      pointer-events: none;
     }
 
     .hero-panel::after {
       content: "";
       position: absolute;
-      width: 180px;
-      height: 180px;
+      width: 220px;
+      height: 220px;
       border-radius: 999px;
-      right: -60px;
-      bottom: -60px;
-      background: radial-gradient(circle, rgba(41,211,145,0.24), transparent 65%);
+      right: -80px;
+      bottom: -80px;
+      background: radial-gradient(circle, rgba(41,211,145,0.20), transparent 68%);
       pointer-events: none;
+      z-index: -1;
     }
 
     .panel-title, .section-head {
@@ -231,7 +299,7 @@
 
     .panel-title h2, .section-head h2 {
       margin: 0;
-      font-size: clamp(1.55rem, 3vw, 2.15rem);
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
       letter-spacing: -0.03em;
     }
 
@@ -246,10 +314,10 @@
       white-space: nowrap;
     }
 
-    section { padding: 34px 0; }
+    section { padding: 38px 0; }
 
     .section-head {
-      margin-bottom: 18px;
+      margin-bottom: 20px;
     }
 
     .section-head p {
@@ -259,42 +327,53 @@
       line-height: 1.7;
     }
 
-    .grid-3, .grid-2 {
+    .grid-3, .grid-2, .proof-grid {
       display: grid;
       gap: 18px;
     }
 
-    .grid-3 { grid-template-columns: repeat(3, minmax(0,1fr)); }
+    .grid-3, .proof-grid { grid-template-columns: repeat(3, minmax(0,1fr)); }
     .grid-2 { grid-template-columns: repeat(2, minmax(0,1fr)); }
 
-    .card, .step, .price-card { padding: 22px; }
+    .card, .step, .price-card { padding: 22px; position: relative; overflow: hidden; }
+    .card::after, .step::after, .price-card::after {
+      content: "";
+      position: absolute;
+      inset: auto -30px -45px auto;
+      width: 110px;
+      height: 110px;
+      border-radius: 999px;
+      background: radial-gradient(circle, rgba(143,179,255,0.10), transparent 70%);
+      pointer-events: none;
+    }
 
     .card h3, .step h3, .price-card h3 {
       margin: 0 0 10px;
-      font-size: 1.05rem;
+      font-size: 1.08rem;
     }
 
     .card p, .step p, .price-card p {
       margin: 0;
       color: var(--muted);
-      line-height: 1.7;
+      line-height: 1.72;
     }
 
     .icon {
-      width: 46px;
-      height: 46px;
-      border-radius: 14px;
+      width: 48px;
+      height: 48px;
+      border-radius: 16px;
       display: grid;
       place-items: center;
       margin-bottom: 14px;
-      background: linear-gradient(135deg, rgba(41,211,145,0.15), rgba(143,179,255,0.18));
+      background: linear-gradient(135deg, rgba(41,211,145,0.16), rgba(143,179,255,0.20));
       border: 1px solid rgba(255,255,255,0.08);
-      font-size: 1.18rem;
+      font-size: 1.2rem;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.08);
     }
 
     .step-num {
-      width: 34px;
-      height: 34px;
+      width: 36px;
+      height: 36px;
       display: inline-flex;
       align-items: center;
       justify-content: center;
@@ -304,11 +383,37 @@
       color: #dce6ff;
       font-weight: 800;
       margin-bottom: 14px;
+      box-shadow: 0 8px 20px rgba(143,179,255,0.10);
+    }
+
+    .proof-strip {
+      padding: 18px;
+      margin-top: 18px;
+    }
+
+    .proof-item {
+      padding: 14px 16px;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--line);
+    }
+
+    .proof-item strong {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--text);
+    }
+
+    .proof-item span {
+      color: var(--muted);
+      line-height: 1.6;
+      font-size: 0.95rem;
     }
 
     .price-card.featured {
       outline: 2px solid rgba(41,211,145,0.24);
       transform: translateY(-4px);
+      box-shadow: 0 24px 60px rgba(9, 20, 38, 0.42);
     }
 
     .price-row {
@@ -319,7 +424,7 @@
     }
 
     .price-row .big {
-      font-size: 2.2rem;
+      font-size: 2.35rem;
       font-weight: 800;
       letter-spacing: -0.04em;
     }
@@ -353,25 +458,36 @@
     }
 
     .cta-panel {
-      padding: 30px;
+      padding: 32px;
       display: grid;
       grid-template-columns: 1.15fr 0.85fr;
-      gap: 20px;
+      gap: 22px;
       align-items: center;
       position: relative;
       overflow: hidden;
+      isolation: isolate;
     }
 
     .cta-panel::before {
       content: "";
       position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(41,211,145,0.08), rgba(143,179,255,0.08) 55%, rgba(255,211,110,0.05));
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .cta-panel::after {
+      content: "";
+      position: absolute;
       left: -70px;
       bottom: -90px;
-      width: 220px;
-      height: 220px;
+      width: 240px;
+      height: 240px;
       border-radius: 999px;
-      background: radial-gradient(circle, rgba(143,179,255,0.24), transparent 65%);
+      background: radial-gradient(circle, rgba(143,179,255,0.20), transparent 65%);
       pointer-events: none;
+      z-index: -1;
     }
 
     .cta-side {
@@ -381,7 +497,21 @@
     }
 
     .translator {
-      padding: 24px;
+      padding: 26px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .translator::after {
+      content: "";
+      position: absolute;
+      right: -50px;
+      top: -50px;
+      width: 160px;
+      height: 160px;
+      border-radius: 999px;
+      background: radial-gradient(circle, rgba(255,211,110,0.12), transparent 68%);
+      pointer-events: none;
     }
 
     .translator-grid {
@@ -399,6 +529,12 @@
       background: rgba(255,255,255,0.04);
       color: var(--text);
       font-size: 0.96rem;
+      outline: none;
+    }
+
+    .translator select:focus {
+      border-color: rgba(143,179,255,0.38);
+      box-shadow: 0 0 0 4px rgba(143,179,255,0.10);
     }
 
     .copy-box {
@@ -410,10 +546,25 @@
       color: #dce6ff;
       line-height: 1.7;
       white-space: pre-line;
+      position: relative;
+    }
+
+    .copy-box::before {
+      content: "Core copy";
+      position: absolute;
+      top: -11px;
+      left: 14px;
+      padding: 3px 8px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #dce6ff;
+      background: #12203a;
+      border: 1px solid var(--line);
+      border-radius: 999px;
     }
 
     .footer {
-      padding: 26px 0 42px;
+      padding: 28px 0 42px;
       color: var(--muted);
       font-size: 0.93rem;
     }
@@ -428,7 +579,7 @@
     }
 
     @media (max-width: 980px) {
-      .hero-grid, .grid-3, .grid-2, .cta-panel { grid-template-columns: 1fr; }
+      .hero-grid, .grid-3, .grid-2, .cta-panel, .proof-grid { grid-template-columns: 1fr; }
       .price-card.featured { transform: none; }
       h1 { max-width: 100%; }
     }
@@ -436,7 +587,7 @@
     @media (max-width: 760px) {
       .nav-links a { display: none; }
       .nav-links .btn { display: inline-flex; }
-      .hero { padding-top: 46px; }
+      .hero { padding-top: 48px; }
       .hero-actions { flex-direction: column; }
       .btn { width: 100%; }
       .hero-actions .btn { width: auto; }
@@ -467,7 +618,7 @@
       <div class="container hero-grid">
         <div>
           <div class="eyebrow">Interview practice for job offers, visa decisions, and high-stakes work conversations</div>
-          <h1>Don’t let weak English cost you the opportunity.</h1>
+          <h1><span class="gradient-text">Don’t let weak English cost you the opportunity.</span></h1>
           <p class="lead lead-strong">Most people do not fail because they lack qualifications. They fail because, under pressure, their answers sound hesitant, unclear, or unconvincing.</p>
           <p class="lead">InterviewEdge helps you practice before the real moment arrives. You answer realistic questions, get direct correction, and walk in knowing what to say and how to say it.</p>
           <div class="hero-actions">
@@ -501,6 +652,27 @@
             </div>
           </div>
         </aside>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="proof-strip">
+          <div class="proof-grid">
+            <div class="proof-item">
+              <strong>What this prevents</strong>
+              <span>Rambling answers, long pauses, weak first impressions, and missed opportunities.</span>
+            </div>
+            <div class="proof-item">
+              <strong>What this builds</strong>
+              <span>Clearer structure, sharper wording, stronger delivery, and calmer performance.</span>
+            </div>
+            <div class="proof-item">
+              <strong>What this feels like</strong>
+              <span>Walking into the real conversation already knowing how you want to sound.</span>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -627,7 +799,7 @@
       <div class="container">
         <div class="cta-panel">
           <div>
-            <h2 style="margin:0 0 12px; font-size:clamp(1.7rem,3vw,2.5rem); letter-spacing:-0.03em;">If the conversation matters, practice before it happens.</h2>
+            <h2 style="margin:0 0 12px; font-size:clamp(1.8rem,3vw,2.55rem); letter-spacing:-0.03em;">If the conversation matters, practice before it happens.</h2>
             <p class="lead" style="margin-bottom:0; max-width:58ch;">A weak answer can cost you more than one session ever will. Book practice now and walk in knowing what to say.</p>
           </div>
           <div class="cta-side">
