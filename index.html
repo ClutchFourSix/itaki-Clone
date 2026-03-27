@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HireFluent | Mock Interviews That Help You Get Hired</title>
+  <meta name="description" content="Practice real English job interviews with vetted coaches. Build confidence, improve your answers, and get hired faster." />
+  <style>
+    :root {
+      --bg: #0b1020;
+      --panel: rgba(19, 28, 54, 0.88);
+      --panel-2: rgba(15, 22, 43, 0.92);
+      --text: #eef3ff;
+      --muted: #b7c3e4;
+      --line: rgba(255,255,255,0.10);
+      --brand: #63f5c8;
+      --brand-2: #7aa8ff;
+      --danger: #ff8a8a;
+      --shadow: 0 18px 60px rgba(0,0,0,0.35);
+      --radius: 22px;
+      --radius-sm: 14px;
+      --max: 1180px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(122,168,255,0.18), transparent 35%),
+        radial-gradient(circle at top right, rgba(99,245,200,0.12), transparent 28%),
+        linear-gradient(180deg, #0b1020 0%, #0d1327 45%, #0b1020 100%);
+      min-height: 100vh;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+
+    .wrap { width: min(var(--max), calc(100% - 32px)); margin: 0 auto; }
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(14px);
+      background: rgba(7, 11, 24, 0.75);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      min-height: 72px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 800;
+      letter-spacing: 0.2px;
+    }
+
+    .brand-mark {
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, var(--brand) 0%, var(--brand-2) 100%);
+      color: #07111d;
+      box-shadow: 0 10px 30px rgba(99,245,200,0.25);
+      font-weight: 900;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      color: var(--muted);
+      font-size: 0.96rem;
+    }
+
+    .btn,
+    button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      border: 0;
+      cursor: pointer;
+      border-radius: 999px;
+      padding: 14px 20px;
+      font-weight: 700;
+      font-size: 0.96rem;
+      transition: transform .18s ease, opacity .18s ease, box-shadow .18s ease, background .18s ease;
+    }
+
+    .btn:hover,
+    button:hover { transform: translateY(-1px); }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--brand) 0%, #8ae5ff 100%);
+      color: #05101c;
+      box-shadow: 0 14px 32px rgba(99,245,200,0.25);
+    }
+
+    .btn-secondary {
+      background: rgba(255,255,255,0.05);
+      color: var(--text);
+      border: 1px solid var(--line);
+    }
+
+    .hero {
+      padding: 72px 0 36px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.85fr;
+      gap: 28px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: rgba(122,168,255,0.12);
+      border: 1px solid rgba(122,168,255,0.22);
+      color: #dce7ff;
+      font-size: 0.88rem;
+      font-weight: 600;
+    }
+
+    h1 {
+      margin: 18px 0 16px;
+      font-size: clamp(2.3rem, 5vw, 4.45rem);
+      line-height: 0.98;
+      letter-spacing: -0.04em;
+      max-width: 13ch;
+    }
+
+    .gradient-text {
+      background: linear-gradient(135deg, #ffffff 0%, #9ef9db 35%, #8bb6ff 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .hero p.lead {
+      color: var(--muted);
+      font-size: 1.08rem;
+      line-height: 1.7;
+      max-width: 58ch;
+      margin: 0 0 26px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 22px;
+    }
+
+    .stat-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 8px;
+    }
+
+    .stat-chip {
+      padding: 12px 14px;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--line);
+      color: var(--muted);
+      min-width: 148px;
+    }
+
+    .stat-chip strong {
+      display: block;
+      color: var(--text);
+      font-size: 1.05rem;
+      margin-bottom: 4px;
+    }
+
+    .hero-card,
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+      border-radius: var(--radius);
+    }
+
+    .hero-card {
+      padding: 22px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .hero-card::after {
+      content: "";
+      position: absolute;
+      inset: auto -40px -50px auto;
+      width: 170px;
+      height: 170px;
+      border-radius: 999px;
+      background: radial-gradient(circle, rgba(99,245,200,0.28), transparent 65%);
+      pointer-events: none;
+    }
+
+    .card-title {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .card-title h2,
+    .section-head h2 {
+      margin: 0;
+      font-size: clamp(1.55rem, 3vw, 2.2rem);
+      letter-spacing: -0.03em;
+    }
+
+    .pill {
+      font-size: 0.8rem;
+      color: #bfffe8;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(99,245,200,0.1);
+      border: 1px solid rgba(99,245,200,0.22);
+      white-space: nowrap;
+    }
+
+    .coach-list {
+      display: grid;
+      gap: 14px;
+    }
+
+    .coach {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      gap: 14px;
+      padding: 14px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.035);
+      border: 1px solid rgba(255,255,255,0.07);
+    }
+
+    .avatar {
+      width: 58px;
+      height: 58px;
+      border-radius: 18px;
+      display: grid;
+      place-items: center;
+      font-weight: 800;
+      color: #04101b;
+      background: linear-gradient(135deg, #a1ffd7 0%, #96b9ff 100%);
+    }
+
+    .coach h3 {
+      margin: 0 0 6px;
+      font-size: 1rem;
+    }
+
+    .coach p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.92rem;
+      line-height: 1.5;
+    }
+
+    .coach .price {
+      text-align: right;
+      white-space: nowrap;
+    }
+
+    .coach .price strong {
+      display: block;
+      font-size: 1.1rem;
+      margin-bottom: 4px;
+    }
+
+    section {
+      padding: 34px 0;
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 16px;
+      margin-bottom: 18px;
+    }
+
+    .section-head p {
+      margin: 0;
+      color: var(--muted);
+      max-width: 60ch;
+      line-height: 1.7;
+    }
+
+    .grid-3,
+    .grid-2 {
+      display: grid;
+      gap: 16px;
+    }
+
+    .grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+    .feature,
+    .testimonial,
+    .faq-item,
+    .offer-card,
+    .cta-card,
+    .process-step {
+      background: var(--panel-2);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .feature,
+    .testimonial,
+    .faq-item,
+    .offer-card,
+    .process-step {
+      padding: 22px;
+    }
+
+    .icon {
+      width: 46px;
+      height: 46px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      margin-bottom: 14px;
+      background: linear-gradient(135deg, rgba(99,245,200,0.18), rgba(122,168,255,0.22));
+      border: 1px solid rgba(255,255,255,0.08);
+      font-size: 1.2rem;
+    }
+
+    .feature h3,
+    .offer-card h3,
+    .faq-item h3,
+    .process-step h3,
+    .testimonial h3 {
+      margin: 0 0 10px;
+      font-size: 1.08rem;
+    }
+
+    .feature p,
+    .offer-card p,
+    .faq-item p,
+    .process-step p,
+    .testimonial p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .process-step .num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 34px;
+      height: 34px;
+      border-radius: 999px;
+      margin-bottom: 14px;
+      font-weight: 800;
+      background: rgba(122,168,255,0.12);
+      border: 1px solid rgba(122,168,255,0.25);
+      color: #dce7ff;
+    }
+
+    .offer-card.featured {
+      outline: 2px solid rgba(99,245,200,0.28);
+      transform: translateY(-4px);
+    }
+
+    .price-row {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      margin: 12px 0 18px;
+    }
+
+    .price-row .big {
+      font-size: 2.25rem;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+    }
+
+    .list {
+      display: grid;
+      gap: 10px;
+      margin: 0 0 22px;
+      padding: 0;
+      list-style: none;
+    }
+
+    .list li {
+      color: var(--muted);
+      padding-left: 22px;
+      position: relative;
+    }
+
+    .list li::before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      top: 0;
+      color: var(--brand);
+      font-weight: 800;
+    }
+
+    .cta-card {
+      padding: 30px;
+      display: grid;
+      grid-template-columns: 1.2fr 0.9fr;
+      gap: 20px;
+      align-items: center;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .cta-card::before {
+      content: "";
+      position: absolute;
+      inset: auto auto -80px -60px;
+      width: 220px;
+      height: 220px;
+      border-radius: 999px;
+      background: radial-gradient(circle, rgba(122,168,255,0.28), transparent 65%);
+      pointer-events: none;
+    }
+
+    .cta-card p {
+      color: var(--muted);
+      line-height: 1.7;
+      margin: 12px 0 0;
+      max-width: 52ch;
+    }
+
+    .cta-side {
+      display: grid;
+      gap: 12px;
+      justify-items: start;
+    }
+
+    .mini-note {
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .faq {
+      display: grid;
+      gap: 14px;
+    }
+
+    .footer {
+      padding: 28px 0 42px;
+      color: var(--muted);
+      font-size: 0.93rem;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      flex-wrap: wrap;
+      padding-top: 18px;
+      border-top: 1px solid var(--line);
+    }
+
+    .disclaimer {
+      margin-top: 12px;
+      font-size: 0.88rem;
+      color: #95a4c9;
+    }
+
+    @media (max-width: 980px) {
+      .hero-grid,
+      .cta-card,
+      .grid-3,
+      .grid-2 { grid-template-columns: 1fr; }
+      .offer-card.featured { transform: none; }
+      h1 { max-width: 100%; }
+    }
+
+    @media (max-width: 760px) {
+      .nav-links a { display: none; }
+      .nav-links .btn { display: inline-flex; }
+      .hero { padding-top: 42px; }
+      .coach { grid-template-columns: auto 1fr; }
+      .coach .price { grid-column: 1 / -1; text-align: left; }
+      .cta-side { justify-items: stretch; }
+      .btn, button { width: 100%; }
+      .hero-actions .btn { width: auto; }
+      .hero-actions { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="wrap nav-inner">
+      <a href="#top" class="brand">
+        <span class="brand-mark">HF</span>
+        <span>HireFluent</span>
+      </a>
+      <div class="nav-links">
+        <a href="#coaches">Coaches</a>
+        <a href="#how">How it works</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#faq">FAQ</a>
+        <a class="btn btn-primary" href="#book">Book a mock interview</a>
+      </div>
+    </div>
+  </nav>
+
+  <main id="top">
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div>
+          <div class="eyebrow">English coaching for job interviews, visa interviews, and high-stakes conversations</div>
+          <h1><span class="gradient-text">Practice the interview before it matters.</span></h1>
+          <p class="lead">HireFluent helps non-native English speakers sound clearer, calmer, and more confident in real interviews. Book a mock session, get direct feedback, and improve the answers that decide whether you get hired.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#book">Start with a mock interview</a>
+            <a class="btn btn-secondary" href="#coaches">View coaches</a>
+          </div>
+          <div class="stat-row">
+            <div class="stat-chip"><strong>30 minutes</strong> practical mock interview</div>
+            <div class="stat-chip"><strong>Fast feedback</strong> corrections after each session</div>
+            <div class="stat-chip"><strong>Job-focused</strong> built for real hiring outcomes</div>
+          </div>
+        </div>
+
+        <aside class="hero-card" id="coaches">
+          <div class="card-title">
+            <h2>Featured coaches</h2>
+            <span class="pill">Manual MVP</span>
+          </div>
+          <div class="coach-list">
+            <article class="coach">
+              <div class="avatar">SJ</div>
+              <div>
+                <h3>Sarah J. — US interview coach</h3>
+                <p>HR background. Ideal for first interviews, common questions, and stronger English answers.</p>
+              </div>
+              <div class="price"><strong>$19</strong><span class="mini-note">30 min</span></div>
+            </article>
+            <article class="coach">
+              <div class="avatar">DL</div>
+              <div>
+                <h3>Daniel L. — Business English</h3>
+                <p>Focused on professional tone, clarity, and confidence for remote roles and client calls.</p>
+              </div>
+              <div class="price"><strong>$25</strong><span class="mini-note">45 min</span></div>
+            </article>
+            <article class="coach">
+              <div class="avatar">AM</div>
+              <div>
+                <h3>Anna M. — Confidence & pronunciation</h3>
+                <p>Best for nervous speakers who need smoother delivery, cleaner pronunciation, and less hesitation.</p>
+              </div>
+              <div class="price"><strong>$29</strong><span class="mini-note">45 min</span></div>
+            </article>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <h2>Why this sells better than “English lessons”</h2>
+          </div>
+          <p>Because people do not wake up wanting grammar. They want the job, the visa, the promotion, or the confidence to stop freezing when it counts.</p>
+        </div>
+        <div class="grid-3">
+          <article class="feature">
+            <div class="icon">🎯</div>
+            <h3>Outcome first</h3>
+            <p>We focus on the conversation that matters most: the one tied to income, opportunity, and credibility.</p>
+          </article>
+          <article class="feature">
+            <div class="icon">🧠</div>
+            <h3>Real feedback</h3>
+            <p>No generic lesson plans. We correct weak answers, awkward phrasing, and confidence problems immediately.</p>
+          </article>
+          <article class="feature">
+            <div class="icon">⚡</div>
+            <h3>Fast to book</h3>
+            <p>Choose a coach, send your role or goal, and we manually confirm your session. Simple beats fancy when speed matters.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="how">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <h2>How it works</h2>
+          </div>
+          <p>This MVP is intentionally lean. It is built to validate demand fast, close students manually, and improve from real customer behavior instead of guesswork.</p>
+        </div>
+        <div class="grid-3">
+          <article class="process-step">
+            <div class="num">1</div>
+            <h3>Tell us your goal</h3>
+            <p>Job interview, visa interview, business meeting, or general confidence in spoken English.</p>
+          </article>
+          <article class="process-step">
+            <div class="num">2</div>
+            <h3>Get matched manually</h3>
+            <p>We connect you with the coach that fits your purpose and preferred session style.</p>
+          </article>
+          <article class="process-step">
+            <div class="num">3</div>
+            <h3>Practice and improve</h3>
+            <p>You do the mock interview, receive corrections, and leave with stronger answers and clearer speech.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="pricing">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <h2>Simple offers that convert</h2>
+          </div>
+          <p>Start with a low-friction first purchase. Once you have proof and testimonials, upsell into a multi-session package.</p>
+        </div>
+        <div class="grid-3">
+          <article class="offer-card">
+            <h3>Starter Mock</h3>
+            <p>Best first offer for social media traffic and cold prospects.</p>
+            <div class="price-row"><span class="big">$19</span><span class="mini-note">one session</span></div>
+            <ul class="list">
+              <li>30-minute mock interview</li>
+              <li>Basic feedback on answers</li>
+              <li>One recommended improvement path</li>
+            </ul>
+            <a class="btn btn-secondary" href="#book">Choose Starter</a>
+          </article>
+          <article class="offer-card featured">
+            <h3>Interview Boost</h3>
+            <p>Best value for people with an interview coming soon.</p>
+            <div class="price-row"><span class="big">$49</span><span class="mini-note">two sessions</span></div>
+            <ul class="list">
+              <li>Two mock interviews</li>
+              <li>Focused phrasing corrections</li>
+              <li>Confidence and delivery coaching</li>
+            </ul>
+            <a class="btn btn-primary" href="#book">Choose Boost</a>
+          </article>
+          <article class="offer-card">
+            <h3>Confidence Pack</h3>
+            <p>For speakers who want a stronger long-term improvement arc.</p>
+            <div class="price-row"><span class="big">$99</span><span class="mini-note">five sessions</span></div>
+            <ul class="list">
+              <li>Five guided sessions</li>
+              <li>Repeat practice on weak points</li>
+              <li>Great for work and ongoing interviews</li>
+            </ul>
+            <a class="btn btn-secondary" href="#book">Choose Pack</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <h2>What customers need to feel</h2>
+          </div>
+          <p>Not “this looks like a language site.” They need to feel: “These people understand exactly why I am nervous, and they can help me fix it quickly.”</p>
+        </div>
+        <div class="grid-2">
+          <article class="testimonial">
+            <h3>“I stopped freezing on common questions.”</h3>
+            <p>After one session, I had stronger answers and felt much more prepared for the interview. The feedback was very direct, which helped.</p>
+          </article>
+          <article class="testimonial">
+            <h3>“It felt like interview practice, not a classroom.”</h3>
+            <p>I liked that we focused on the real problem: speaking clearly and confidently under pressure. That made it much more useful than a normal lesson.</p>
+          </article>
+        </div>
+        <p class="disclaimer">These are starter placeholder testimonials for MVP design. Replace them with real student feedback as soon as you begin taking sessions.</p>
+      </div>
+    </section>
+
+    <section id="book">
+      <div class="wrap">
+        <div class="cta-card">
+          <div>
+            <h2>Book your first session</h2>
+            <p>This landing page is wired for a manual MVP. Prospects click, contact you, and you handle matching and payment manually. That is faster, cheaper, and smarter than building a full marketplace before you have demand.</p>
+            <p class="mini-note">Update the buttons below with your real Telegram username, WhatsApp link, payment link, or booking form.</p>
+          </div>
+          <div class="cta-side">
+            <a class="btn btn-primary" id="telegramCta" href="https://t.me/YOUR_TELEGRAM_USERNAME" target="_blank" rel="noopener noreferrer">Message on Telegram</a>
+            <a class="btn btn-secondary" id="emailCta" href="mailto:hello@yourdomain.com?subject=I%20want%20a%20mock%20interview">Email to book</a>
+            <div class="mini-note">Recommended next step: connect a payment link and a simple intake form.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="faq">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <h2>FAQ</h2>
+          </div>
+          <p>Keep objections low. Answer the obvious questions directly and without fluff.</p>
+        </div>
+        <div class="faq">
+          <article class="faq-item">
+            <h3>Is this a full automated marketplace?</h3>
+            <p>Not yet. This version is intentionally manual so we can validate demand and improve the offer before building more software.</p>
+          </article>
+          <article class="faq-item">
+            <h3>Can I choose my coach?</h3>
+            <p>Yes. You can request a coach directly, or we can match you based on your goal and your preferred style.</p>
+          </article>
+          <article class="faq-item">
+            <h3>Do you help with general English too?</h3>
+            <p>Yes, but the strongest offer is interview-focused coaching because it solves a painful, urgent, high-value problem.</p>
+          </article>
+          <article class="faq-item">
+            <h3>What should the owner improve next?</h3>
+            <p>Add a form, a payment link, real tutor photos, genuine testimonials, and eventually a booking calendar. But do not wait for those to start selling.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap footer-inner">
+      <div>
+        <strong>HireFluent</strong><br />
+        Interview English coaching for high-stakes conversations.
+      </div>
+      <div>
+        Built for fast validation. Improve from real demand, not imagination.
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Quick edit point for manual MVP setup.
+    // Replace these placeholders after deployment.
+    const CONFIG = {
+      telegramUrl: 'https://t.me/YOUR_TELEGRAM_USERNAME',
+      emailAddress: 'hello@yourdomain.com'
+    };
+
+    const telegramCta = document.getElementById('telegramCta');
+    const emailCta = document.getElementById('emailCta');
+
+    telegramCta.href = CONFIG.telegramUrl;
+    emailCta.href = `mailto:${CONFIG.emailAddress}?subject=${encodeURIComponent('I want a mock interview')}`;
+  </script>
+</body>
+</html>
