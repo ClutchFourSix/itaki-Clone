@@ -1,107 +1,702 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>InterviewEdge</title>
-<style>
-body{margin:0;font-family:Inter,Arial;background:#0b1220;color:#fff}
-.container{max-width:1100px;margin:auto;padding:40px 20px}
-h1{font-size:56px;line-height:1.05;margin-bottom:20px}
-h2{margin-top:60px}
-p{color:#bfc7d5;font-size:18px;line-height:1.6}
-.btn{display:inline-block;margin-top:20px;padding:16px 26px;background:#22c55e;color:#000;font-weight:bold;border-radius:8px;text-decoration:none}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px;margin-top:30px}
-.card{background:#111a2e;padding:24px;border-radius:12px}
-.hero{padding-top:60px}
-.sub{font-size:22px;margin-bottom:20px}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>InterviewEdge | Interview Practice Before It Counts</title>
+  <meta name="description" content="InterviewEdge helps non-native English speakers practice for job interviews, visa interviews, and high-stakes work conversations before the real moment arrives." />
+  <style>
+    :root {
+      --bg: #0b1220;
+      --bg2: #10192d;
+      --panel: #111a2e;
+      --panel2: #16223d;
+      --text: #f4f7ff;
+      --muted: #b8c3d9;
+      --line: rgba(255,255,255,0.08);
+      --brand: #29d391;
+      --brand-dark: #0b1b14;
+      --accent: #8fb3ff;
+      --max: 1120px;
+      --radius: 18px;
+      --shadow: 0 18px 45px rgba(0,0,0,0.28);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Inter, Arial, sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(143,179,255,0.15), transparent 30%),
+        radial-gradient(circle at top right, rgba(41,211,145,0.10), transparent 25%),
+        linear-gradient(180deg, var(--bg) 0%, #0d1628 45%, var(--bg) 100%);
+      color: var(--text);
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    .container {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(12px);
+      background: rgba(11,18,32,0.76);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .nav-inner {
+      min-height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 800;
+      letter-spacing: 0.2px;
+    }
+
+    .brand-mark {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, var(--brand) 0%, var(--accent) 100%);
+      color: #07110d;
+      font-weight: 900;
+      box-shadow: 0 12px 28px rgba(41,211,145,0.18);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      border-radius: 999px;
+      padding: 15px 24px;
+      font-weight: 800;
+      font-size: 0.96rem;
+      border: 0;
+      cursor: pointer;
+      transition: transform .18s ease, box-shadow .18s ease, opacity .18s ease;
+    }
+
+    .btn:hover { transform: translateY(-1px); }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--brand) 0%, #6fe6b6 100%);
+      color: #07110d;
+      box-shadow: 0 14px 32px rgba(41,211,145,0.24);
+    }
+
+    .btn-secondary {
+      background: rgba(255,255,255,0.04);
+      color: var(--text);
+      border: 1px solid var(--line);
+    }
+
+    .hero {
+      padding: 74px 0 40px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.85fr;
+      gap: 28px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: rgba(143,179,255,0.11);
+      border: 1px solid rgba(143,179,255,0.18);
+      color: #dce6ff;
+      font-size: 0.88rem;
+      font-weight: 700;
+    }
+
+    h1 {
+      margin: 18px 0 18px;
+      font-size: clamp(2.8rem, 6vw, 5.2rem);
+      line-height: 0.96;
+      letter-spacing: -0.05em;
+      max-width: 11ch;
+    }
+
+    .lead {
+      margin: 0 0 16px;
+      color: var(--muted);
+      font-size: 1.08rem;
+      line-height: 1.75;
+      max-width: 58ch;
+    }
+
+    .lead-strong {
+      color: #dce6ff;
+      font-weight: 700;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 26px;
+    }
+
+    .trust-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .trust-pill {
+      padding: 12px 14px;
+      border-radius: 14px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--line);
+      color: var(--muted);
+      min-width: 155px;
+    }
+
+    .trust-pill strong {
+      display: block;
+      color: var(--text);
+      margin-bottom: 4px;
+      font-size: 1rem;
+    }
+
+    .panel,
+    .card,
+    .price-card,
+    .cta-panel,
+    .translator,
+    .step {
+      background: linear-gradient(180deg, var(--panel) 0%, var(--panel2) 100%);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .hero-panel {
+      padding: 24px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-panel::after {
+      content: "";
+      position: absolute;
+      width: 180px;
+      height: 180px;
+      border-radius: 999px;
+      right: -60px;
+      bottom: -60px;
+      background: radial-gradient(circle, rgba(41,211,145,0.24), transparent 65%);
+      pointer-events: none;
+    }
+
+    .panel-title, .section-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: end;
+    }
+
+    .panel-title { margin-bottom: 16px; align-items: center; }
+
+    .panel-title h2, .section-head h2 {
+      margin: 0;
+      font-size: clamp(1.55rem, 3vw, 2.15rem);
+      letter-spacing: -0.03em;
+    }
+
+    .tag {
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(41,211,145,0.10);
+      border: 1px solid rgba(41,211,145,0.18);
+      color: #ceffea;
+      font-size: 0.8rem;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    section { padding: 34px 0; }
+
+    .section-head {
+      margin-bottom: 18px;
+    }
+
+    .section-head p {
+      margin: 0;
+      color: var(--muted);
+      max-width: 62ch;
+      line-height: 1.7;
+    }
+
+    .grid-3, .grid-2 {
+      display: grid;
+      gap: 18px;
+    }
+
+    .grid-3 { grid-template-columns: repeat(3, minmax(0,1fr)); }
+    .grid-2 { grid-template-columns: repeat(2, minmax(0,1fr)); }
+
+    .card, .step, .price-card { padding: 22px; }
+
+    .card h3, .step h3, .price-card h3 {
+      margin: 0 0 10px;
+      font-size: 1.05rem;
+    }
+
+    .card p, .step p, .price-card p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .icon {
+      width: 46px;
+      height: 46px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      margin-bottom: 14px;
+      background: linear-gradient(135deg, rgba(41,211,145,0.15), rgba(143,179,255,0.18));
+      border: 1px solid rgba(255,255,255,0.08);
+      font-size: 1.18rem;
+    }
+
+    .step-num {
+      width: 34px;
+      height: 34px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 999px;
+      background: rgba(143,179,255,0.12);
+      border: 1px solid rgba(143,179,255,0.20);
+      color: #dce6ff;
+      font-weight: 800;
+      margin-bottom: 14px;
+    }
+
+    .price-card.featured {
+      outline: 2px solid rgba(41,211,145,0.24);
+      transform: translateY(-4px);
+    }
+
+    .price-row {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      margin: 12px 0 16px;
+    }
+
+    .price-row .big {
+      font-size: 2.2rem;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+    }
+
+    .mini {
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .list {
+      list-style: none;
+      margin: 0 0 20px;
+      padding: 0;
+      display: grid;
+      gap: 10px;
+    }
+
+    .list li {
+      position: relative;
+      padding-left: 22px;
+      color: var(--muted);
+    }
+
+    .list li::before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      top: 0;
+      color: var(--brand);
+      font-weight: 800;
+    }
+
+    .cta-panel {
+      padding: 30px;
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 20px;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-panel::before {
+      content: "";
+      position: absolute;
+      left: -70px;
+      bottom: -90px;
+      width: 220px;
+      height: 220px;
+      border-radius: 999px;
+      background: radial-gradient(circle, rgba(143,179,255,0.24), transparent 65%);
+      pointer-events: none;
+    }
+
+    .cta-side {
+      display: grid;
+      gap: 12px;
+      justify-items: start;
+    }
+
+    .translator {
+      padding: 24px;
+    }
+
+    .translator-grid {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .translator select {
+      width: 100%;
+      padding: 14px 16px;
+      border-radius: 12px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.04);
+      color: var(--text);
+      font-size: 0.96rem;
+    }
+
+    .copy-box {
+      margin-top: 16px;
+      padding: 16px;
+      border-radius: 14px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--line);
+      color: #dce6ff;
+      line-height: 1.7;
+      white-space: pre-line;
+    }
+
+    .footer {
+      padding: 26px 0 42px;
+      color: var(--muted);
+      font-size: 0.93rem;
+    }
+
+    .footer-inner {
+      border-top: 1px solid var(--line);
+      padding-top: 18px;
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 980px) {
+      .hero-grid, .grid-3, .grid-2, .cta-panel { grid-template-columns: 1fr; }
+      .price-card.featured { transform: none; }
+      h1 { max-width: 100%; }
+    }
+
+    @media (max-width: 760px) {
+      .nav-links a { display: none; }
+      .nav-links .btn { display: inline-flex; }
+      .hero { padding-top: 46px; }
+      .hero-actions { flex-direction: column; }
+      .btn { width: 100%; }
+      .hero-actions .btn { width: auto; }
+      .cta-side { justify-items: stretch; }
+      .translator-grid { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
 <body>
+  <nav class="nav">
+    <div class="container nav-inner">
+      <a href="#top" class="brand">
+        <span class="brand-mark">IE</span>
+        <span>InterviewEdge</span>
+      </a>
+      <div class="nav-links">
+        <a href="#why">Why it works</a>
+        <a href="#how">How it works</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#translate">Translate</a>
+        <a class="btn btn-primary" href="#book">Book practice</a>
+      </div>
+    </div>
+  </nav>
 
-<div class="container hero">
+  <main id="top">
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <div class="eyebrow">Interview practice for job offers, visa decisions, and high-stakes work conversations</div>
+          <h1>Don’t let weak English cost you the opportunity.</h1>
+          <p class="lead lead-strong">Most people do not fail because they lack qualifications. They fail because, under pressure, their answers sound hesitant, unclear, or unconvincing.</p>
+          <p class="lead">InterviewEdge helps you practice before the real moment arrives. You answer realistic questions, get direct correction, and walk in knowing what to say and how to say it.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="https://t.me/YOUR_TELEGRAM_USERNAME">Book practice now</a>
+            <a class="btn btn-secondary" href="#why">See what this fixes</a>
+          </div>
+          <div class="trust-row">
+            <div class="trust-pill"><strong>Real pressure</strong> practice for actual decisions</div>
+            <div class="trust-pill"><strong>Direct feedback</strong> fix weak answers fast</div>
+            <div class="trust-pill"><strong>Fast booking</strong> simple manual setup</div>
+          </div>
+        </div>
 
-<h1>Pass the interview. Or lose the opportunity.</h1>
-<p class="sub">InterviewEdge gives you the exact speaking practice you need before high-stakes conversations.</p>
+        <aside class="hero-panel panel">
+          <div class="panel-title">
+            <h2>What you are really buying</h2>
+            <span class="tag">Outcome-focused</span>
+          </div>
+          <div class="grid-3" style="grid-template-columns:1fr; gap:14px;">
+            <div class="card" style="padding:16px 18px;">
+              <h3>Clearer answers</h3>
+              <p>So you stop rambling, hesitating, or sounding unsure.</p>
+            </div>
+            <div class="card" style="padding:16px 18px;">
+              <h3>Stronger delivery</h3>
+              <p>So your experience sounds credible instead of uncertain.</p>
+            </div>
+            <div class="card" style="padding:16px 18px;">
+              <h3>More confidence under pressure</h3>
+              <p>So the real interview feels familiar, not frightening.</p>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
 
-<p>You don’t fail because of grammar. You fail because your answers are unclear, slow, or weak under pressure. We fix that before it matters.</p>
+    <section id="why">
+      <div class="container">
+        <div class="section-head">
+          <div><h2>What this actually solves</h2></div>
+          <p>This is not “more English lessons.” This is preparation for moments where one conversation can change your income, your status, or your future.</p>
+        </div>
+        <div class="grid-3">
+          <article class="card">
+            <div class="icon">💼</div>
+            <h3>Job interviews</h3>
+            <p>Answer clearly, confidently, and without freezing when the employer is judging you in real time.</p>
+          </article>
+          <article class="card">
+            <div class="icon">🛂</div>
+            <h3>Visa interviews</h3>
+            <p>Handle formal questions without sounding uncertain, confused, or unprepared.</p>
+          </article>
+          <article class="card">
+            <div class="icon">📞</div>
+            <h3>Work conversations</h3>
+            <p>Speak more professionally in calls, meetings, introductions, and high-pressure discussions.</p>
+          </article>
+        </div>
+      </div>
+    </section>
 
-<a class="btn" href="https://t.me/YOUR_TELEGRAM_USERNAME">Book Practice Now</a>
+    <section>
+      <div class="container">
+        <div class="section-head">
+          <div><h2>Why people choose this</h2></div>
+          <p>You do not need more theory. You need realistic practice, direct feedback, and sharper answers before the real conversation begins.</p>
+        </div>
+        <div class="grid-3">
+          <article class="card">
+            <div class="icon">🎯</div>
+            <h3>Real questions</h3>
+            <p>Not textbook exercises. Not grammar drills. Real interview-style questions that force you to speak under pressure.</p>
+          </article>
+          <article class="card">
+            <div class="icon">✍️</div>
+            <h3>Direct correction</h3>
+            <p>Weak wording, unclear structure, and awkward phrasing get fixed immediately.</p>
+          </article>
+          <article class="card">
+            <div class="icon">⚡</div>
+            <h3>Fast improvement</h3>
+            <p>You leave with stronger answers, better structure, and more control over what comes out of your mouth.</p>
+          </article>
+        </div>
+      </div>
+    </section>
 
-</div>
+    <section id="how">
+      <div class="container">
+        <div class="section-head">
+          <div><h2>How it works</h2></div>
+          <p>Simple on purpose. You do not need a complicated platform. You need a fast path from uncertainty to readiness.</p>
+        </div>
+        <div class="grid-3">
+          <article class="step">
+            <div class="step-num">1</div>
+            <h3>Tell us your situation</h3>
+            <p>Job interview, visa interview, or important work conversation.</p>
+          </article>
+          <article class="step">
+            <div class="step-num">2</div>
+            <h3>Run realistic practice</h3>
+            <p>You answer out loud, under light pressure, the way you will need to in real life.</p>
+          </article>
+          <article class="step">
+            <div class="step-num">3</div>
+            <h3>Fix and repeat</h3>
+            <p>Your answers are refined until they sound clearer, stronger, and more convincing.</p>
+          </article>
+        </div>
+      </div>
+    </section>
 
-<div class="container">
+    <section id="pricing">
+      <div class="container">
+        <div class="section-head">
+          <div><h2>Simple pricing</h2></div>
+          <p>Start with one session. If the opportunity is close, take more than one. Repetition builds confidence.</p>
+        </div>
+        <div class="grid-3">
+          <article class="price-card">
+            <h3>Single Session</h3>
+            <div class="price-row"><span class="big">$19</span><span class="mini">one session</span></div>
+            <ul class="list">
+              <li>30-minute focused practice</li>
+              <li>Real question-and-answer format</li>
+              <li>Direct correction afterward</li>
+            </ul>
+            <a class="btn btn-secondary" href="https://t.me/YOUR_TELEGRAM_USERNAME">Book one</a>
+          </article>
+          <article class="price-card featured">
+            <h3>Two Sessions</h3>
+            <div class="price-row"><span class="big">$49</span><span class="mini">best value</span></div>
+            <ul class="list">
+              <li>First round to expose weaknesses</li>
+              <li>Second round to sharpen delivery</li>
+              <li>Best for upcoming interviews</li>
+            </ul>
+            <a class="btn btn-primary" href="https://t.me/YOUR_TELEGRAM_USERNAME">Book two</a>
+          </article>
+          <article class="price-card">
+            <h3>Five Sessions</h3>
+            <div class="price-row"><span class="big">$99</span><span class="mini">deep prep</span></div>
+            <ul class="list">
+              <li>Multiple rounds of repetition</li>
+              <li>Useful for several interviews</li>
+              <li>Great for work speaking confidence</li>
+            </ul>
+            <a class="btn btn-secondary" href="https://t.me/YOUR_TELEGRAM_USERNAME">Book five</a>
+          </article>
+        </div>
+      </div>
+    </section>
 
-<h2>What this actually solves</h2>
-<div class="grid">
-<div class="card">
-<strong>Job Interviews</strong>
-<p>Answer clearly, confidently, and without hesitation when it counts.</p>
-</div>
-<div class="card">
-<strong>Visa Interviews</strong>
-<p>Handle formal questions without freezing or second-guessing.</p>
-</div>
-<div class="card">
-<strong>Work Conversations</strong>
-<p>Speak professionally in meetings, calls, and introductions.</p>
-</div>
-</div>
+    <section id="book">
+      <div class="container">
+        <div class="cta-panel">
+          <div>
+            <h2 style="margin:0 0 12px; font-size:clamp(1.7rem,3vw,2.5rem); letter-spacing:-0.03em;">If the conversation matters, practice before it happens.</h2>
+            <p class="lead" style="margin-bottom:0; max-width:58ch;">A weak answer can cost you more than one session ever will. Book practice now and walk in knowing what to say.</p>
+          </div>
+          <div class="cta-side">
+            <a class="btn btn-primary" href="https://t.me/YOUR_TELEGRAM_USERNAME">Message on Telegram</a>
+            <div class="mini">Replace the Telegram placeholder with your real username when you are ready to take bookings.</div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-<h2>What you get</h2>
-<div class="grid">
-<div class="card">
-<strong>Real questions</strong>
-<p>Not theory. Not lessons. Actual interview scenarios.</p>
-</div>
-<div class="card">
-<strong>Direct correction</strong>
-<p>We fix weak answers immediately so you improve fast.</p>
-</div>
-<div class="card">
-<strong>Confidence under pressure</strong>
-<p>You practice until your answers feel automatic.</p>
-</div>
-</div>
+    <section id="translate">
+      <div class="container">
+        <div class="section-head">
+          <div><h2>Translate the core ad copy</h2></div>
+          <p>This gives you a fast way to translate the main pitch into almost any language before using it in ads, messages, or captions.</p>
+        </div>
+        <div class="translator">
+          <p class="lead" style="margin-bottom:0; max-width:none;">Core copy:</p>
+          <div class="copy-box" id="coreCopy">Don’t let weak English cost you the opportunity.
+Practice real interview scenarios. Fix weak answers. Speak clearly when it matters.
+Book practice before the real conversation happens.</div>
+          <div class="translator-grid">
+            <select id="languageSelect" aria-label="Choose target language">
+              <option value="es">Spanish</option>
+              <option value="fr">French</option>
+              <option value="pt">Portuguese</option>
+              <option value="de">German</option>
+              <option value="it">Italian</option>
+              <option value="ru">Russian</option>
+              <option value="uk">Ukrainian</option>
+              <option value="pl">Polish</option>
+              <option value="tr">Turkish</option>
+              <option value="ar">Arabic</option>
+              <option value="hi">Hindi</option>
+              <option value="ur">Urdu</option>
+              <option value="bn">Bengali</option>
+              <option value="zh-CN">Chinese (Simplified)</option>
+              <option value="zh-TW">Chinese (Traditional)</option>
+              <option value="ja">Japanese</option>
+              <option value="ko">Korean</option>
+              <option value="vi">Vietnamese</option>
+              <option value="th">Thai</option>
+              <option value="id">Indonesian</option>
+            </select>
+            <button class="btn btn-primary" id="translateBtn" type="button">Translate copy</button>
+          </div>
+          <p class="mini" style="margin-top:14px;">Need another language later? Add its language code to the selector and the translator button will still work.</p>
+        </div>
+      </div>
+    </section>
+  </main>
 
-<h2>How it works</h2>
-<div class="grid">
-<div class="card">
-<strong>1. Tell us your situation</strong>
-<p>Interview, visa, or work conversation.</p>
-</div>
-<div class="card">
-<strong>2. Run realistic practice</strong>
-<p>You answer real questions out loud.</p>
-</div>
-<div class="card">
-<strong>3. Fix and repeat</strong>
-<p>We refine your answers until they sound right.</p>
-</div>
-</div>
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div><strong>InterviewEdge</strong><br />Interview practice for high-stakes conversations.</div>
+      <div>Built to turn pressure into preparation.</div>
+    </div>
+  </footer>
 
-<h2>Pricing</h2>
-<div class="grid">
-<div class="card">
-<strong>$19</strong>
-<p>Single session</p>
-</div>
-<div class="card">
-<strong>$49</strong>
-<p>Two sessions</p>
-</div>
-<div class="card">
-<strong>$99</strong>
-<p>Five sessions</p>
-</div>
-</div>
+  <script>
+    const translateBtn = document.getElementById('translateBtn');
+    const languageSelect = document.getElementById('languageSelect');
+    const coreCopy = document.getElementById('coreCopy').innerText.trim();
 
-<h2>Don’t walk in unprepared</h2>
-<p>You may only get one chance. Prepare for it properly.</p>
-
-<a class="btn" href="https://t.me/YOUR_TELEGRAM_USERNAME">Message on Telegram</a>
-
-</div>
-
+    translateBtn.addEventListener('click', () => {
+      const lang = languageSelect.value;
+      const url = `https://translate.google.com/?sl=en&tl=${encodeURIComponent(lang)}&text=${encodeURIComponent(coreCopy)}&op=translate`;
+      window.open(url, '_blank', 'noopener,noreferrer');
+    });
+  </script>
 </body>
 </html>
